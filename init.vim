@@ -34,7 +34,6 @@ nmap <C-z> :TagbarToggle<CR>
 
 :set completeopt-=preview " For No Previews
 
-:colorscheme deus
 
 let g:NERDTreeDirArrowExpandable="+"
 let g:NERDTreeDirArrowCollapsible="~"
@@ -68,9 +67,8 @@ map J <Plug>(easymotion-w)
 map K <Plug>(easymotion-b)
 
 nmap c <Plug>(easymotion-s)
-
-
-
-
-
 inoremap <expr> <Enter> pumvisible() ? coc#_select_confirm() : "<Enter>"
+
+colorscheme deus
+" hi Normal guibg=#010101
+hi Normal ctermbg=none
