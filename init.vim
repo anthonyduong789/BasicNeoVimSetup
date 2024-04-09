@@ -25,7 +25,6 @@ Plug 'easymotion/vim-easymotion'
 set encoding=UTF-8
 
 call plug#end()
-
 nnoremap <C-f> :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
@@ -35,18 +34,18 @@ nmap <C-z> :TagbarToggle<CR>
 
 :set completeopt-=preview " For No Previews
 
-:colorscheme jellybeans
+:colorscheme deus
 
 let g:NERDTreeDirArrowExpandable="+"
 let g:NERDTreeDirArrowCollapsible="~"
 
 " --- Just Some Notes ---
-" :PlugClean :PlugInstall :UpdateRemotePlugins
-"
-" :CocInstall coc-python
-" :CocInstall coc-clangd
-" :CocInstall coc-snippets
-" :CocCommand snippets.edit... FOR EACH FILE TYPE
+ " :PlugClean :PlugInstall :UpdateRemotePlugins
+
+ " :CocInstall coc-python
+ " :CocInstall coc-clangd
+ " :CocInstall coc-snippets
+ " :CocCommand snippets.edit... FOR EACH FILE TYPE
 
 " air-line
 let g:airline_powerline_fonts = 1
@@ -74,4 +73,4 @@ nmap c <Plug>(easymotion-s)
 
 
 
-inoremap <expr> <Tab> pumvisible() ? coc#_select_confirm() : "<Tab>"
+inoremap <expr> <Enter> pumvisible() ? coc#_select_confirm() : "<Enter>"
