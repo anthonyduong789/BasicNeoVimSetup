@@ -22,6 +22,8 @@ Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
 Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
 Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
 Plug 'easymotion/vim-easymotion'
+Plug 'aereal/vim-colors-japanesque'
+Plug 'rebelot/kanagawa.nvim'
 set encoding=UTF-8
 
 call plug#end()
@@ -68,7 +70,8 @@ map K <Plug>(easymotion-b)
 
 nmap c <Plug>(easymotion-s)
 inoremap <expr> <Enter> pumvisible() ? coc#_select_confirm() : "<Enter>"
-
 colorscheme deus
 " hi Normal guibg=#010101
 hi Normal ctermbg=none
+:highlight LineNr ctermfg=lightgrey
+" hi LineNr  guifg=#505050   guibg=Black
