@@ -80,3 +80,4 @@ hi Normal ctermbg=none
 let mapleader = " "
 " Map `leader key + E` to open Netrw in the current window
 nmap <leader>e :Ex<CR>
+AirLineTheme: simple
