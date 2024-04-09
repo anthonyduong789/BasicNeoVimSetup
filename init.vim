@@ -23,13 +23,14 @@ Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
 Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
 Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
 Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
-Plug 'easymotion/vim-easymotion'
-Plug 'aereal/vim-colors-japanesque'
-Plug 'rebelot/kanagawa.nvim'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'github/copilot.vim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+Plug 'easymotion/vim-easymotion' " Easy Motion for moving around the file
+Plug 'aereal/vim-colors-japanesque' " Japanesque Theme
+Plug 'rebelot/kanagawa.nvim' " Kanagawa Theme
+Plug 'vim-airline/vim-airline-themes' " Airline Themes to change the bottom bar
+Plug 'github/copilot.vim' " Copilot for code suggestions
+Plug 'nvim-lua/plenary.nvim' " Plenary for Telescope
+Plug 'nvim-telescope/telescope.nvim' " Telescope for file search and navigation
+Plug 'craftzdog/solarized-osaka.nvim' " Solarized Osaka Theme
 set encoding=UTF-8
 
 
@@ -83,13 +84,26 @@ imap <silent><script><expr> <Tab> copilot#Accept("\<Tab>")
 let g:copilot_no_tab_map = v:true
 
 inoremap <expr> <Enter> pumvisible() ? coc#_select_confirm() : "<Enter>"
-colorscheme deus
+" colorscheme deus
+" Set the color scheme
+colorscheme solarized-osaka
+
+" Enable transparent background
+let g:solarized_osaka_transparent_background = 1
+
+" Set terminal colors
+let g:solarized_osaka_terminal_colors = 1
+
+" Unfortunately, detailed styling (like making comments italic) and
+" other specific configurations provided in your Lua example cannot
+" be directly set in Vimscript if they require calling the setup function
+" of a Lua plugin.
 
 
 
 " hi Normal guibg=#010101
 hi Normal ctermbg=none
-:highlight LineNr ctermfg=lightgrey
+:highlight LineNr ctermfg=white
 " hi LineNr  guifg=#505050   guibg=Black
 " Set leader key to space (optional)
 
@@ -97,8 +111,8 @@ hi Normal ctermbg=none
 nmap <leader>e :Ex<CR>
 nnoremap <leader>q :q<CR>
 nnoremap <leader>w :w<CR>
-
-
+noremap <leader>s :split<CR>
+noremap <leader>vs :vsplit<CR>
 
 " Map `leader key + F` to open Telescope find_files
 nnoremap <leader>ls <cmd>Telescope find_files<cr>
