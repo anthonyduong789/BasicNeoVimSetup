@@ -7,6 +7,8 @@
 :set softtabstop=4
 :set mouse=a
 
+
+
 call plug#begin()
 
 Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
@@ -25,7 +27,11 @@ Plug 'easymotion/vim-easymotion'
 Plug 'aereal/vim-colors-japanesque'
 Plug 'rebelot/kanagawa.nvim'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'github/copilot.vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 set encoding=UTF-8
+
 
 call plug#end()
 nnoremap <C-f> :NERDTreeFocus<CR>
@@ -64,19 +70,51 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
+let mapleader = " "
+
+
 " Map 'J' to 'Easymotion-w' for moving to words after the cursor
 map J <Plug>(easymotion-w)
 " Map 'K' to 'Easymotion-b' for moving to words before the cursor
 map K <Plug>(easymotion-b)
+nmap <leader>c <Plug>(easymotion-s)
+" Use Tab for accepting copilot suggestion
+imap <silent><script><expr> <Tab> copilot#Accept("\<Tab>")
+let g:copilot_no_tab_map = v:true
 
-nmap c <Plug>(easymotion-s)
 inoremap <expr> <Enter> pumvisible() ? coc#_select_confirm() : "<Enter>"
 colorscheme deus
+
+
+
 " hi Normal guibg=#010101
 hi Normal ctermbg=none
 :highlight LineNr ctermfg=lightgrey
 " hi LineNr  guifg=#505050   guibg=Black
 " Set leader key to space (optional)
-let mapleader = " "
+
 " Map `leader key + E` to open Netrw in the current window
 nmap <leader>e :Ex<CR>
+nnoremap <leader>q :q<CR>
+nnoremap <leader>w :w<CR>
+
+
+
+" Map `leader key + F` to open Telescope find_files
+nnoremap <leader>ls <cmd>Telescope find_files<cr>
+" Open a new tab and then call Telescope live_grep
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+" Open a new tab and then call Telescope find_files
+noremap <leader>nt :tabnew<CR>
+nnoremap <leader>tn :tabnew<CR>:lua require('telescope.builtin').find_files()<CR>
+nnoremap <leader>ff :lua require('telescope.builtin').find_files({ cwd = vim.fn.expand('~') })<CR>
+
+
+
+" Tab Navigation
+" Open a new tab and find a file
+" Go to the next tab
+nnoremap L :tabnext<CR>
+" Go to the previous tab
+nnoremap H :tabprev<CR>
+
