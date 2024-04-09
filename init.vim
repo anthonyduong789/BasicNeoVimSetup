@@ -92,7 +92,7 @@ colorscheme solarized-osaka
 let g:solarized_osaka_transparent_background = 1
 
 " Set terminal colors
-let g:solarized_osaka_terminal_colors = 1
+" let g:solarized_osaka_terminal_colors = 1
 
 " Unfortunately, detailed styling (like making comments italic) and
 " other specific configurations provided in your Lua example cannot
