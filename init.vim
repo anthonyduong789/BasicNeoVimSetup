@@ -27,14 +27,20 @@ Plug 'easymotion/vim-easymotion' " Easy Motion for moving around the file
 Plug 'aereal/vim-colors-japanesque' " Japanesque Theme
 Plug 'rebelot/kanagawa.nvim' " Kanagawa Theme
 Plug 'vim-airline/vim-airline-themes' " Airline Themes to change the bottom bar
-Plug 'github/copilot.vim' " Copilot for code suggestions
+" Plug 'github/copilot.vim' " Copilot for code suggestions
 Plug 'nvim-lua/plenary.nvim' " Plenary for Telescope
 Plug 'nvim-telescope/telescope.nvim' " Telescope for file search and navigation
 Plug 'craftzdog/solarized-osaka.nvim' " Solarized Osaka Theme
+Plug 'sbdchd/neoformat' " For formatting code
+Plug 'Exafunction/codeium.vim', { 'branch': 'main' } " Codeium Theme
 set encoding=UTF-8
 
-
+autocmd BufWritePre *.js Neoformat
 call plug#end()
+
+" applies formatting to the current buffer on save
+" Key binding for manual formatting
+nnoremap <leader>p :CocCommand<CRSub>
 nnoremap <C-f> :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
@@ -78,12 +84,15 @@ let mapleader = " "
 map J <Plug>(easymotion-w)
 " Map 'K' to 'Easymotion-b' for moving to words before the cursor
 map K <Plug>(easymotion-b)
-nmap <leader>c <Plug>(easymotion-s)
+nmap s <Plug>(easymotion-s)
 " Use Tab for accepting copilot suggestion
 imap <silent><script><expr> <Tab> copilot#Accept("\<Tab>")
 let g:copilot_no_tab_map = v:true
 
+
+
 inoremap <expr> <Enter> pumvisible() ? coc#_select_confirm() : "<Enter>"
+" colorscheme jellybeans
 " colorscheme deus
 " Set the color scheme
 colorscheme solarized-osaka
@@ -92,7 +101,7 @@ colorscheme solarized-osaka
 let g:solarized_osaka_transparent_background = 1
 
 " Set terminal colors
-" let g:solarized_osaka_terminal_colors = 1
+let g:solarized_osaka_terminal_colors = 1
 
 " Unfortunately, detailed styling (like making comments italic) and
 " other specific configurations provided in your Lua example cannot
@@ -122,13 +131,13 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 noremap <leader>nt :tabnew<CR>
 nnoremap <leader>tn :tabnew<CR>:lua require('telescope.builtin').find_files()<CR>
 nnoremap <leader>ff :lua require('telescope.builtin').find_files({ cwd = vim.fn.expand('~') })<CR>
-
-
-
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 " Tab Navigation
 " Open a new tab and find a file
 " Go to the next tab
 nnoremap L :tabnext<CR>
 " Go to the previous tab
 nnoremap H :tabprev<CR>
+set clipboard+=unnamedplus
 
