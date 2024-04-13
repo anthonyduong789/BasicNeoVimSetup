@@ -81,7 +81,7 @@ inoremap <expr> <Enter> pumvisible() ? coc#_select_confirm() : "<Enter>"
 " colorscheme deus
 " Set the color scheme
 " colorscheme solarized-osaka
-" colorscheme default
+colorscheme default
 " Enable transparent background
 let g:solarized_osaka_transparent_background = 1
 
