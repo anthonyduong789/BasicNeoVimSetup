@@ -1,13 +1,15 @@
-:set number
-:set relativenumber
-:set autoindent
-:set tabstop=4
-:set shiftwidth=4
-:set smarttab
-:set softtabstop=4
-:set mouse=a
-
-
+set number
+set relativenumber
+set autoindent
+set tabstop=4
+set shiftwidth=4
+set smarttab
+set softtabstop=4
+set mouse=a
+set scrolloff=10
+set spell
+set spelllang=en_us
+set confirm
 
 call plug#begin()
 
@@ -26,8 +28,8 @@ Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple c
 Plug 'easymotion/vim-easymotion' " Easy Motion for moving around the file
 Plug 'aereal/vim-colors-japanesque' " Japanesque Theme
 Plug 'rebelot/kanagawa.nvim' " Kanagawa Theme
-" Plug 'vim-airline/vim-airline-themes' " Airline Themes to change the bottom bar
-Plug 'github/copilot.vim' " Copilot for code suggestions
+Plug 'vim-airline/vim-airline-themes' " Airline Themes to change the bottom bar
+" Plug 'github/copilot.vim' " Copilot for code suggestions
 Plug 'nvim-lua/plenary.nvim' " Plenary for Telescope
 Plug 'nvim-telescope/telescope.nvim' " Telescope for file search and navigation
 Plug 'craftzdog/solarized-osaka.nvim' " Solarized Osaka Theme
@@ -46,10 +48,9 @@ set encoding=UTF-8
  " :CocInstall coc-clangd
  " :CocInstall coc-snippets
  " :CocCommand snippets.edit... FOR EACH FILE TYPE
-
 " air-line
 let g:airline_powerline_fonts = 1
-
+" let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
@@ -64,6 +65,7 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 let mapleader = " "
 
+" let g:airline_statusline_ontop=1
 
 " Map 'J' to 'Easymotion-w' for moving to words after the cursor
 map J <Plug>(easymotion-w)
@@ -78,15 +80,15 @@ let g:copilot_no_tab_map = v:true
 
 inoremap <expr> <Enter> pumvisible() ? coc#_select_confirm() : "<Enter>"
 " colorscheme jellybeans
-" colorscheme deus
+colorscheme deus
 " Set the color scheme
 " colorscheme solarized-osaka
-colorscheme default
+" colorscheme default
 " Enable transparent background
-let g:solarized_osaka_transparent_background = 1
+" let g:solarized_osaka_transparent_background = 1
 
 " Set terminal colors
-let g:solarized_osaka_terminal_colors = 1
+" let g:solarized_osaka_terminal_colors = 1
 
 " Unfortunately, detailed styling (like making comments italic) and
 " other specific configurations provided in your Lua example cannot
@@ -99,7 +101,13 @@ let g:solarized_osaka_terminal_colors = 1
 " hi Normal guibg=#010101
 " hi Normal ctermbg=none
 " :highlight LineNr ctermfg=white
-" hi LineNr  guifg=#505050   guibg=Black
+" hi LineNr guifg=#f3ff17
+highlight LineNr term =bold ctermfg=yellow
+set cursorline
+" highlight CursorLine cterm=NONE ctermbg=LightYellow ctermfg=NONE
+
+" add this to top to change background of the 
+" guibg=Black
 " Set leader key to space (optional)
 
 " Map `leader key + E` to open Netrw in the current window
@@ -109,12 +117,12 @@ nnoremap <leader>w :w<CR>
 noremap <leader>s :split<CR>
 noremap <leader>vs :vsplit<CR>
 " Map `leader key + F` to open Telescope find_files
-nnoremap <leader>ls <cmd>Telescope find_files<cr>
+" nnoremap <leader>ls <cmd>Telescope find_files<cr>
 " Open a new tab and then call Telescope live_grep
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 " Open a new tab and then call Telescope find_files
 noremap <leader>nt :tabnew<CR>
-nnoremap <leader>tn :tabnew<CR>:lua require('telescope.builtin').find_files()<CR>
+" nnoremap <leader>tn :tabnew<CR>:lua require('telescope.builtin').find_files()<CR>
 nnoremap <leader>ff :lua require('telescope.builtin').find_files({ cwd = vim.fn.expand('~') })<CR>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
@@ -127,8 +135,9 @@ nnoremap vw vaw
 
 
 
-
-
+nnoremap <C-z> :TagbarToggle<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <leader>t :NERDTreeFind<CR>
 " Map 'f' to Vim-Sneak's sneak functionality
 " Map 'f' to Vim-Sneak's forward single-character sneak
 nmap f <Plug>Sneak_f
@@ -146,3 +155,20 @@ nnoremap L :tabnext<CR>
 nnoremap H :tabprev<CR>
 set clipboard+=unnamedplus
 " Set cursor shape in different modes
+
+
+
+function! BrowseCurrentFileDirectory()
+    " Get the directory of the current file
+    let current_file_dir = expand('%:p:h')
+    " Launch Telescope find_files at this directory
+    execute 'Telescope find_files cwd=' . current_file_dir
+endfunction
+nnoremap <Leader>fd :call BrowseCurrentFileDirectory()<CR>
+
+
+
+
+
+nnoremap <Leader>ls :call BrowseCurrentFileDirectory()<CR>
+
