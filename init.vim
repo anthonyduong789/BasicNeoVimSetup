@@ -7,16 +7,33 @@ set smarttab
 set softtabstop=4
 set mouse=a
 set scrolloff=10
-set spell
-set spelllang=en_us
+" set spell
+" set spelllang=en_us
 set confirm
-
+" set guicursor=i:block
+set cursorline
 call plug#begin()
+set splitbelow
+" set showcmd
+set splitright
+set list
+set listchars=tab:>-,trail:·
+
+syntax on
+
+
+
+" disable key bindings for arrow keys for movement
+nnoremap <Up> <Nop>
+nnoremap <Down> <Nop>
+nnoremap <Left> <Nop>
+nnoremap <Right> <Nop>
+
 
 Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
 Plug 'https://github.com/preservim/nerdtree' " NerdTree
 Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
-" Plug 'https://github.com/vim-airline/vim-airline' " Status bar
+Plug 'https://github.com/vim-airline/vim-airline' " Status bar
 Plug 'https://github.com/lifepillar/pgsql.vim' " PSQL Pluging needs :SQLSetType pgsql.vim
 Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
 Plug 'https://github.com/rafi/awesome-vim-colorschemes' " Retro Scheme
@@ -34,12 +51,12 @@ Plug 'nvim-lua/plenary.nvim' " Plenary for Telescope
 Plug 'nvim-telescope/telescope.nvim' " Telescope for file search and navigation
 Plug 'craftzdog/solarized-osaka.nvim' " Solarized Osaka Theme
 Plug 'sbdchd/neoformat' " For formatting code
-" Plug 'Exafunction/codeium.vim', { 'branch': 'main' } " Codeium Theme
+Plug 'Exafunction/codeium.vim', { 'branch': 'main' } " Codeium Theme
 Plug 'justinmk/vim-sneak'
-
 call plug#end()
 
 set encoding=UTF-8
+
 
 " --- Just Some Notes ---
  " :PlugClean :PlugInstall :UpdateRemotePlugins
@@ -64,7 +81,6 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 let mapleader = " "
-
 " let g:airline_statusline_ontop=1
 
 " Map 'J' to 'Easymotion-w' for moving to words after the cursor
@@ -73,12 +89,33 @@ map J <Plug>(easymotion-w)
 map K <Plug>(easymotion-b)
 " nmap s <Plug>(easymotion-s)
 " Use Tab for accepting copilot suggestion
-imap <silent><script><expr> <Tab> copilot#Accept("\<Tab>")
-let g:copilot_no_tab_map = v:true
+" imap <silent><script><expr> <Tab> copilot#Accept("\<Tab>")
+" let g:copilot_no_tab_map = v:true
 
+let g:codeium_disable_bindings = 1
 
 
 inoremap <expr> <Enter> pumvisible() ? coc#_select_confirm() : "<Enter>"
+imap <script><silent><nowait><expr> <Tab> codeium#Accept()
+imap <S-Right>   <Cmd>call codeium#CycleCompletions(1)<CR>
+imap <S-Left>   <Cmd>call codeium#CycleCompletions(-1)<CR>
+imap <C-Left>   <Cmd>call codeium#Clear()<CR>
+imap <C-Right>  <Cmd>call codeium#Complete()<CR> 
+
+" codeium default settings
+" Clear current suggestion	codeium#Clear()	<C-]>
+" Next suggestion	codeium#CycleCompletions(1)	<M-]>
+" Previous suggestion	codeium#CycleCompletions(-1)	<M-[>
+" Insert suggestion	codeium#Accept()	<Tab>
+" Manually trigger suggestion	codeium#Complete()	<M-Bslash>
+
+
+
+
+
+
+
+
 " colorscheme jellybeans
 colorscheme deus
 " Set the color scheme
@@ -95,15 +132,14 @@ colorscheme deus
 " be directly set in Vimscript if they require calling the setup function
 " of a Lua plugin.
 
-" :highlight LineNr ctermfg=#f8ff3b
 
 
 " hi Normal guibg=#010101
 " hi Normal ctermbg=none
 " :highlight LineNr ctermfg=white
 " hi LineNr guifg=#f3ff17
-highlight LineNr term =bold ctermfg=yellow
-set cursorline
+highlight LineNr ctermfg=yellow
+" set cursorline
 " highlight CursorLine cterm=NONE ctermbg=LightYellow ctermfg=NONE
 
 " add this to top to change background of the 
@@ -137,7 +173,7 @@ nnoremap vw vaw
 
 nnoremap <C-z> :TagbarToggle<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
-nnoremap <leader>t :NERDTreeFind<CR>
+nnoremap <Leader>t :NERDTreeFind<CR>
 " Map 'f' to Vim-Sneak's sneak functionality
 " Map 'f' to Vim-Sneak's forward single-character sneak
 nmap f <Plug>Sneak_f
@@ -153,9 +189,8 @@ nmap F <Plug>Sneak_F
 nnoremap L :tabnext<CR>
 " Go to the previous tab
 nnoremap H :tabprev<CR>
-set clipboard+=unnamedplus
+" set clipboard+=unnamedplus
 " Set cursor shape in different modes
-
 
 
 function! BrowseCurrentFileDirectory()
@@ -167,8 +202,39 @@ endfunction
 nnoremap <Leader>fd :call BrowseCurrentFileDirectory()<CR>
 
 
-
-
+" automatically saves folds/ how you left the file in view
+" autocmd BufWinLeave *.* mkview
+" autocmd BufWinEnter *.* silent loadview
+" stored in the .local/share/nvim/view
 
 nnoremap <Leader>ls :call BrowseCurrentFileDirectory()<CR>
+
+
+" Enable coc.nvim
+" :call coc#util#install()
+
+" Configuration for Python
+" autocmd FileType python setl formatexpr=CocAction('formatSelected')
+" let g:coc_global_extensions = ['coc-snippets', 'coc-pyright', 'coc-tsserver']
+
+
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
+
+" nnoremap <leader>gd :CocCommand workspace.jumToDefinition<CR>
 
