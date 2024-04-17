@@ -52,12 +52,13 @@ Plug 'nvim-telescope/telescope.nvim' " Telescope for file search and navigation
 Plug 'craftzdog/solarized-osaka.nvim' " Solarized Osaka Theme
 Plug 'sbdchd/neoformat' " For formatting code
 Plug 'Exafunction/codeium.vim', { 'branch': 'main' } " Codeium Theme
-Plug 'justinmk/vim-sneak'
+" Plug 'justinmk/vim-sneak'
+Plug 'https://github.com/ggandor/leap.nvim.git'
 call plug#end()
 
 set encoding=UTF-8
 
-
+lua require('leap').create_default_mappings()
 " --- Just Some Notes ---
  " :PlugClean :PlugInstall :UpdateRemotePlugins
 
@@ -163,22 +164,15 @@ nnoremap <leader>ff :lua require('telescope.builtin').find_files({ cwd = vim.fn.
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 
-nnoremap cw caw
-nnoremap yw yaw
-nnoremap dw daw
-nnoremap vw vaw
- 
-
-
 
 nnoremap <C-z> :TagbarToggle<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <Leader>t :NERDTreeFind<CR>
 " Map 'f' to Vim-Sneak's sneak functionality
 " Map 'f' to Vim-Sneak's forward single-character sneak
-nmap f <Plug>Sneak_f
+" nmap f <Plug>Sneak_f
 " Map 'F' to Vim-Sneak's backward single-character sneak
-nmap F <Plug>Sneak_F
+" nmap F <Plug>Sneak_F
 " Map 't' to Vim-Sneak's forward single-character sneak up to the target
 " nmap t <Plug>Sneak_t
 " Map 'T' to Vim-Sneak's backward single-character sneak up to the target
@@ -237,4 +231,15 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 xmap <leader>x  <Plug>(coc-convert-snippet)
 
 " nnoremap <leader>gd :CocCommand workspace.jumToDefinition<CR>
+
+
+
+
+" Type
+
+" s{char}<space> to jump to a character before the end of the line.
+" s<space><space> to jump to an empty line (or any EOL position if Visual mode or virtualedit allows it)
+" s<enter> to repeat the last search.
+" s{char}<enter> to jump to the first {char}{?} pair right away.
+" s<enter><enter>... or s{char}<enter><enter>... to traverse through the matches.
 
