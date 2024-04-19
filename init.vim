@@ -12,7 +12,6 @@ set scrolloff=10
 set confirm
 " set guicursor=i:block
 set cursorline
-call plug#begin()
 set splitbelow
 " set showcmd
 set splitright
@@ -30,6 +29,7 @@ nnoremap <Left> <Nop>
 nnoremap <Right> <Nop>
 
 
+call plug#begin()
 Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
 Plug 'https://github.com/preservim/nerdtree' " NerdTree
 Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
@@ -52,8 +52,9 @@ Plug 'nvim-telescope/telescope.nvim' " Telescope for file search and navigation
 Plug 'craftzdog/solarized-osaka.nvim' " Solarized Osaka Theme
 Plug 'sbdchd/neoformat' " For formatting code
 Plug 'Exafunction/codeium.vim', { 'branch': 'main' } " Codeium Theme
-" Plug 'justinmk/vim-sneak'
 Plug 'https://github.com/ggandor/leap.nvim.git'
+" Plug 'https://github.com/vimcolorschemes/vimcolorschemes.git'
+Plug 'ray-x/aurora'      " for Plug user
 call plug#end()
 
 set encoding=UTF-8
@@ -101,7 +102,7 @@ imap <script><silent><nowait><expr> <Tab> codeium#Accept()
 imap <S-Right>   <Cmd>call codeium#CycleCompletions(1)<CR>
 imap <S-Left>   <Cmd>call codeium#CycleCompletions(-1)<CR>
 imap <C-Left>   <Cmd>call codeium#Clear()<CR>
-imap <C-Right>  <Cmd>call codeium#Complete()<CR> 
+imap <C-Right>  <Cmd>all codeium#Complete()<CR> 
 
 " codeium default settings
 " Clear current suggestion	codeium#Clear()	<C-]>
@@ -110,15 +111,14 @@ imap <C-Right>  <Cmd>call codeium#Complete()<CR>
 " Insert suggestion	codeium#Accept()	<Tab>
 " Manually trigger suggestion	codeium#Complete()	<M-Bslash>
 
+colorscheme aurora
 
-
-
-
-
-
-
+" colorscheme termschool
+" colorscheme solarized8_high 
+" colorscheme afterglow
+" colorscheme gruvbox
 " colorscheme jellybeans
-colorscheme deus
+" colorscheme deus
 " Set the color scheme
 " colorscheme solarized-osaka
 " colorscheme default
@@ -139,7 +139,7 @@ colorscheme deus
 " hi Normal ctermbg=none
 " :highlight LineNr ctermfg=white
 " hi LineNr guifg=#f3ff17
-highlight LineNr ctermfg=yellow
+highlight LineNr ctermfg=lightgrey
 " set cursorline
 " highlight CursorLine cterm=NONE ctermbg=LightYellow ctermfg=NONE
 
